@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROOCO GAMING — Premium Gaming Consoles, Games & Hardware</title>
+  <meta name="description" content="India's premium gaming marketplace for PlayStation 5, Xbox Series X, Nintendo Switch consoles, original physical disc games, controllers, and gaming accessories. Authentic products with manufacturer warranty.">
+  <meta name="theme-color" content="#07090E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- PROMOTIONAL TOP BAR -->
+  <div class="top-bar">
+    <span><i data-lucide="truck" style="width: 14px; height: 14px;"></i> FREE EXPRESS SHIPPING ON ORDERS ABOVE ₹5,000</span>
+    <span class="desktop-only"><i data-lucide="shield-check" style="width: 14px; height: 14px;"></i> 100% GENUINE INDIAN RETAIL UNITS</span>
+    <span class="desktop-only"><i data-lucide="zap" style="width: 14px; height: 14px;"></i> SAME DAY DISPATCH IN METROS</span>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <header class="main-header">
+    <div class="container header-content">
+      <!-- LOGO -->
+      <a href="#home" class="logo-brand">
+        <div class="logo-icon-box">
+          <i data-lucide="gamepad-2" style="width: 22px; height: 22px;"></i>
+        </div>
+        <span>ROOCO<span style="color: var(--accent-cyan);">GAMING</span></span>
+      </a>
+
+      <!-- NAVIGATION LINKS -->
+      <nav class="nav-links">
+        <a href="#shop?category=Consoles" class="nav-item">Consoles</a>
+        <a href="#games" class="nav-item">Games</a>
+        <a href="#shop?category=Controllers" class="nav-item">Controllers</a>
+        <a href="#shop?category=Accessories" class="nav-item">Accessories</a>
+        <a href="#shop?category=Bundles" class="nav-item">Bundles</a>
+        <a href="#deals" class="nav-item" style="color: var(--accent-orange);">Deals</a>
+        <a href="#compare" class="nav-item">Compare</a>
+        <a href="#finder" class="nav-item">Quiz Finder</a>
+        <a href="#admin" class="nav-item" style="color: #C084FC;">Admin Portal</a>
+      </nav>
+
+      <!-- HEADER ACTIONS -->
+      <div class="header-actions">
+        <!-- SEARCH TRIGGER -->
+        <button class="search-trigger" onclick="toggleSearchModal(true)">
+          <i data-lucide="search" style="width: 16px; height: 16px;"></i>
+          <span>Search consoles, games...</span>
+          <span class="keyboard-shortcut">⌘K</span>
+        </button>
+
+        <!-- ACCOUNT BUTTON -->
+        <a href="#account" class="btn-icon" title="My Account">
+          <i data-lucide="user" style="width: 20px; height: 20px;"></i>
+        </a>
+
+        <!-- WISHLIST BUTTON -->
+        <a href="#wishlist" class="btn-icon icon-badge-btn" title="Wishlist">
+          <i data-lucide="heart" style="width: 20px; height: 20px;"></i>
+          <span class="badge-count" id="wishlist-badge-count">0</span>
+        </a>
+
+        <!-- CART BUTTON -->
+        <button class="btn-icon icon-badge-btn" onclick="toggleCartDrawer(true)" title="Shopping Cart">
+          <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
+          <span class="badge-count" id="cart-badge-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DYNAMIC SPA APP VIEW MOUNT -->
+  <div id="app-view"></div>
+
+  <!-- CART DRAWER MODAL -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay" onclick="if(event.target === this) toggleCartDrawer(false);">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <i data-lucide="shopping-bag" style="color: var(--accent-cyan);"></i>
+          <h3 class="font-heading" style="font-size: 1.1rem;">YOUR GAMING CART</h3>
+        </div>
+        <button class="btn-icon" onclick="toggleCartDrawer(false)"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="cart-items-list" id="cart-drawer-items">
+        <!-- Dynamic Cart Items -->
+      </div>
+
+      <div class="cart-footer">
+        <div>
+          <span id="free-ship-text" style="font-size: 0.8rem; font-weight: 700;"></span>
+          <div class="free-shipping-bar">
+            <div class="free-shipping-progress" id="free-ship-progress" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 800;">
+          <span>Subtotal</span>
+          <span style="color: var(--accent-cyan);" id="cart-drawer-subtotal">₹0</span>
+        </div>
+
+        <div style="display: flex; gap: 0.5rem;">
+          <a href="#checkout" class="btn btn-primary" style="flex: 1;" onclick="toggleCartDrawer(false)">
+            PROCEED TO CHECKOUT
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH MODAL OVERLAY -->
+  <div class="search-modal-overlay" id="search-modal" onclick="if(event.target === this) toggleSearchModal(false);">
+    <div class="search-modal-box">
+      <div class="search-modal-input-wrap">
+        <i data-lucide="search" style="color: var(--accent-cyan); width: 22px; height: 22px;"></i>
+        <input type="text" class="search-modal-input" id="search-input" placeholder="Search PS5 Pro, GTA 6, DualSense, Xbox..." autocomplete="off">
+        <button class="btn-icon" onclick="toggleSearchModal(false)"><i data-lucide="x"></i></button>
+      </div>
+      <div class="search-results-container" id="search-results">
+        <p style="color: var(--text-muted); text-align: center; padding: 2rem;">Type to search consoles, physical games, controllers...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- MOBILE BOTTOM STICKY NAV -->
+  <nav class="mobile-bottom-nav">
+    <a href="#home" class="mobile-nav-item active">
+      <i data-lucide="home" style="width: 20px; height: 20px;"></i>
+      <span>Home</span>
+    </a>
+    <a href="#shop" class="mobile-nav-item">
+      <i data-lucide="grid" style="width: 20px; height: 20px;"></i>
+      <span>Shop</span>
+    </a>
+    <button class="mobile-nav-item" onclick="toggleSearchModal(true)">
+      <i data-lucide="search" style="width: 20px; height: 20px;"></i>
+      <span>Search</span>
+    </button>
+    <a href="#wishlist" class="mobile-nav-item">
+      <i data-lucide="heart" style="width: 20px; height: 20px;"></i>
+      <span>Wishlist</span>
+    </a>
+    <button class="mobile-nav-item" onclick="toggleCartDrawer(true)">
+      <i data-lucide="shopping-bag" style="width: 20px; height: 20px;"></i>
+      <span>Cart</span>
+    </button>
+  </nav>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="#home" class="logo-brand">
+            <div class="logo-icon-box">
+              <i data-lucide="gamepad-2" style="width: 22px; height: 22px;"></i>
+            </div>
+            <span>ROOCO<span style="color: var(--accent-cyan);">GAMING</span></span>
+          </a>
+          <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; margin-top: 0.5rem;">
+            India's premier modern gaming destination for consoles, physical disc games, elite controllers, and authentic gaming hardware. Built for true enthusiasts.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">SHOP</h4>
+          <div class="footer-links">
+            <a href="#shop?category=Consoles">PlayStation 5</a>
+            <a href="#shop?category=Consoles">Xbox Series X|S</a>
+            <a href="#shop?category=Consoles">Nintendo Switch</a>
+            <a href="#games">Physical Disc Games</a>
+            <a href="#shop?category=Controllers">Pro Controllers</a>
+            <a href="#deals">Gaming Deals</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">TOOLS & FINDERS</h4>
+          <div class="footer-links">
+            <a href="#compare">Console Spec Comparer</a>
+            <a href="#finder">Controller Finder Quiz</a>
+            <a href="#account">Order Tracking</a>
+            <a href="#account">Pincode Delivery Check</a>
+            <a href="#admin">Admin Management</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">SUPPORT</h4>
+          <div class="footer-links">
+            <a href="#home">Manufacturer Warranty</a>
+            <a href="#home">Shipping & Delivery</a>
+            <a href="#home">7-Day Easy Returns</a>
+            <a href="#home">Authenticity Guarantee</a>
+            <a href="#home">Contact Customer Care</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-heading">COMMUNITY</h4>
+          <div class="footer-links">
+            <a href="#home">Instagram @roocogaming</a>
+            <a href="#home">Discord Server</a>
+            <a href="#home">YouTube Channel</a>
+            <a href="#home">Gaming News</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 ROOCO GAMING INDIA PVT LTD. All rights reserved. Registered trademark.</span>
+        <span>Designed with Cyber-Obsidian Tech Architecture</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script src="app.js"></script>
+</body>
+</html>
